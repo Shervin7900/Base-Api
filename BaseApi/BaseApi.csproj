@@ -4,6 +4,13 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+    <PackageId>DiscountManager.BaseApi</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Shervin</Authors>
+    <Description>Shared infrastructure for Discount Manager microservices. Includes Identity, Health, Metrics, and Caching.</Description>
   </PropertyGroup>
 
   <ItemGroup>
