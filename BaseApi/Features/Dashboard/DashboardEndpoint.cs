@@ -1,28 +1,32 @@
-using Microsoft.AspNetCore.Mvc;
+using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
 
-namespace BaseApi.Controllers;
+namespace BaseApi.Features.Dashboard;
 
-[ApiController]
-[Route("api/[controller]")]
-[Microsoft.AspNetCore.Authorization.Authorize]
-public class VectorDashboardController : ControllerBase
+public class DashboardEndpoint : EndpointWithoutRequest
 {
     private readonly IHttpClientFactory _httpClientFactory;
 
-    public VectorDashboardController(IHttpClientFactory httpClientFactory)
+    public DashboardEndpoint(IHttpClientFactory httpClientFactory)
     {
         _httpClientFactory = httpClientFactory;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Get()
+    public override void Configure()
+    {
+        Get("/api/dashboard");
+        AllowAnonymous();
+        Description(x => x.WithTags("Infrastructure"));
+    }
+
+    public override async Task HandleAsync(CancellationToken ct)
     {
         var client = _httpClientFactory.CreateClient();
         
         string metrics;
         try 
         {
-            metrics = await client.GetStringAsync($"{Request.Scheme}://{Request.Host}/metrics");
+            metrics = await client.GetStringAsync($"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/metrics", ct);
         }
         catch (Exception ex)
         {
@@ -55,6 +59,6 @@ public class VectorDashboardController : ControllerBase
 </body>
 </html>";
 
-        return Content(html, "text/html");
+        await SendStringAsync(html, 200, "text/html", ct);
     }
 }

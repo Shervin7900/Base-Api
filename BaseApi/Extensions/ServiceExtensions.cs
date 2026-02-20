@@ -1,5 +1,5 @@
-using BaseApi.Data;
-using BaseApi.Models;
+using BaseApi.Infrastructure.Persistence;
+using BaseApi.Domain.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

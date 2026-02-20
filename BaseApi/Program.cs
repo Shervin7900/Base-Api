@@ -1,4 +1,4 @@
-using BaseApi.Data;
+using BaseApi.Infrastructure.Persistence;
 using BaseApi.Extensions;
 using Duende.IdentityServer.EntityFramework.Mappers;
 using Microsoft.EntityFrameworkCore;
@@ -23,17 +23,17 @@ using (var scope = app.Services.CreateScope())
     // Only seed if empty and requested (or always in this demo)
     if (!context.Clients.Any())
     {
-        foreach (var client in BaseApi.Data.Config.Clients)
+        foreach (var client in Config.Clients)
         {
             context.Clients.Add(client.ToEntity());
         }
         
-        foreach (var resource in BaseApi.Data.Config.IdentityResources)
+        foreach (var resource in Config.IdentityResources)
         {
             context.IdentityResources.Add(resource.ToEntity());
         }
         
-        foreach (var scopeItem in BaseApi.Data.Config.ApiScopes)
+        foreach (var scopeItem in Config.ApiScopes)
         {
             context.ApiScopes.Add(scopeItem.ToEntity());
         }

@@ -1,8 +1,8 @@
-using BaseApi.Models;
+using BaseApi.Domain.Entities;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 
-namespace BaseApi.Data;
+namespace BaseApi.Infrastructure.Persistence;
 
 public static class Config
 {

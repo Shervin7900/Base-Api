@@ -19,13 +19,16 @@ The project follows a modern microservices architecture where shared concerns (a
 
 ### Infrastructure & Tools
 - **Identity**: [Duende IdentityServer](https://duendesoftware.com/products/identityserver) with ASP.NET Identity
+- **Fast API for .NET**: [FastEndpoints](https://fast-endpoints.com/) for streamlined API development
 - **Observability**: [OpenTelemetry](https://opentelemetry.io/) (Metrics, Traces, Prometheus)
 - **Health Checks**: ASP.NET Core Health Checks with UI Dashboard
-- **Documentation**: Swagger/OpenAPI (Swashbuckle)
+- **Documentation**: Swagger/OpenAPI (FastEndpoints.Swagger)
 - **Containerization**: Docker & Docker Compose
 
 ## ✨ Key Features
 
+- **DDD Architecture**: Domain-Driven Design folder structure (`Domain`, `Infrastructure`, `Features`).
+- **Fast Performance**: High-performance API endpoints using FastEndpoints.
 - **Centralized Identity**: Unified OAuth2/OpenID Connect provider for all microservices.
 - **Deep Observability**: Out-of-the-box telemetry for HTTP requests, database calls, and runtime metrics.
 - **Resilient Infrastructure**: Integrated health monitoring for SQL Server, MongoDB, and Redis.

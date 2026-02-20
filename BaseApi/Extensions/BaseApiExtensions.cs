@@ -1,5 +1,7 @@
-using BaseApi.Data;
-using BaseApi.Models;
+using BaseApi.Infrastructure.Persistence;
+using BaseApi.Domain.Entities;
+using FastEndpoints;
+using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +29,8 @@ public static class BaseApiExtensions
 
         services.AddControllers();
         services.AddEndpointsApiExplorer();
+        services.AddFastEndpoints();
+        services.SwaggerDocument();
 
         return services;
     }
@@ -61,6 +65,7 @@ public static class BaseApiExtensions
         });
 
         app.MapControllers();
+        app.UseFastEndpoints();
 
         return app;
     }
