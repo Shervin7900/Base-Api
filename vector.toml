@@ -1,0 +1,26 @@
+# Vector Configuration
+# Collects Docker container logs and forwards them to Loki
+
+[sources.docker_logs]
+type = "docker_logs"
+# Collect logs from all containers
+include_containers = []
+
+[transforms.add_fields]
+type = "remap"
+inputs = ["docker_logs"]
+source = '''
+.labels.service = .container_name
+.labels.env = "docker"
+'''
+
+[sinks.loki]
+type = "loki"
+inputs = ["add_fields"]
+endpoint = "http://loki:3100"
+encoding.codec = "json"
+
+  [sinks.loki.labels]
+  job = "vector"
+  host = "{{ host }}"
+  container = "{{ container_name }}"

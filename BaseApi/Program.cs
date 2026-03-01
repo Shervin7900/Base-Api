@@ -5,6 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.UseSentry(options =>
+{
+    options.Dsn = builder.Configuration["Sentry:Dsn"] ?? string.Empty;
+    options.TracesSampleRate = double.TryParse(builder.Configuration["Sentry:TracesSampleRate"], out var rate) ? rate : 0.1;
+    options.AttachStacktrace = true;
+});
+
 // Add Base Infrastructure (IdentityServer, Health, Metrics, Caching, etc.)
 builder.Services.AddBaseInfrastructure(builder.Configuration);
 

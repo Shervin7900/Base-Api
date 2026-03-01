@@ -2,7 +2,6 @@ services:
   baseapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-    # Map more ports for debugging if needed
     ports:
       - "7000:8080"
       - "7001:8081"
@@ -19,3 +18,11 @@ services:
   mongodb:
     ports:
       - "27017:27017"
+
+  loki:
+    ports:
+      - "3100:3100"
+
+  grafana:
+    ports:
+      - "3000:3000"

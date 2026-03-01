@@ -49,7 +49,41 @@ services:
       - MONGO_INITDB_DATABASE=BaseApi
     restart: always
 
+  # ── Observability Stack ─────────────────────────────────────────────────────
+
+  loki:
+    image: grafana/loki:2.9.0
+    command: -config.file=/etc/loki/local-config.yaml
+    # Ports moved to environment-specific files
+    restart: unless-stopped
+
+  vector:
+    image: timberio/vector:0.39.0-alpine
+    volumes:
+      - ./vector.toml:/etc/vector/vector.toml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - loki
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:10.4.0
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_AUTH_DISABLE_LOGIN_FORM=false
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - loki
+    # Ports moved to environment-specific files
+    restart: unless-stopped
+
 volumes:
   sql_data:
   mongo_data:
   redis_data:
+  grafana_data:
