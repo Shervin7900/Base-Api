@@ -18,7 +18,7 @@ builder.Services.AddBaseInfrastructure(builder.Configuration);
 var app = builder.Build();
 
 // Use Base Infrastructure
-app.UseBaseInfrastructure();
+app.UseBaseInfrastructure("Base API", "Shared Identity & Infrastructure");
 
 // Optional Seeding Logic
 try

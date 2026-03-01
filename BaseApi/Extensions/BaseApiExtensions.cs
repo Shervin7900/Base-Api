@@ -35,16 +35,16 @@ public static class BaseApiExtensions
         return services;
     }
 
-    public static IApplicationBuilder UseBaseInfrastructure(this WebApplication app)
+    public static IApplicationBuilder UseBaseInfrastructure(this WebApplication app, string apiName = "Base API", string apiTitle = "Base API - API & Dashboards")
     {
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Base API v1");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", $"{apiName} v1");
                 options.RoutePrefix = "swagger";
-                options.DocumentTitle = "Base API - API & Dashboards";
+                options.DocumentTitle = apiTitle;
             });
         }
 
