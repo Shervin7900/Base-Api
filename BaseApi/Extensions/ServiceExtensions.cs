@@ -121,22 +121,23 @@ public static class ServiceExtensions
         
         if (sqlConnectionString != "InMemory")
         {
-            builder.AddSqlServer(sqlConnectionString, name: "SQL Server");
+            builder.AddSqlServer(sqlConnectionString, name: "SQL Server", tags: new[] { "ready" });
         }
         
         if (redisConnectionString != "InMemory" && !string.IsNullOrEmpty(redisConnectionString))
         {
-            builder.AddRedis(redisConnectionString, name: "Redis Cache");
+            builder.AddRedis(redisConnectionString, name: "Redis Cache", tags: new[] { "ready" });
         }
         
         if (mongoConnectionString != "InMemory" && !string.IsNullOrEmpty(mongoConnectionString))
         {
-            builder.AddMongoDb(_ => new MongoClient(mongoConnectionString), name: "MongoDB");
+            builder.AddMongoDb(_ => new MongoClient(mongoConnectionString), name: "MongoDB", tags: new[] { "ready" });
         }
 
         services.AddHealthChecksUI(setup =>
         {
-            setup.AddHealthCheckEndpoint("Basic Health Check", "/health");
+            setup.AddHealthCheckEndpoint("Liveness Check", "/health/live");
+            setup.AddHealthCheckEndpoint("Readiness Check", "/health/ready");
             setup.SetEvaluationTimeInSeconds(30);
         }).AddInMemoryStorage();
     }

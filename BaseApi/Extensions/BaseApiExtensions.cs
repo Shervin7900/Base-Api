@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json;
 
 namespace BaseApi.Extensions;
 
@@ -72,10 +73,37 @@ public static class BaseApiExtensions
         app.UseAuthorization();
         app.UseVectorMetrics();
 
-        app.MapHealthChecks("/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+        app.MapHealthChecks("/health/live", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
         {
-            ResponseWriter = HealthChecks.UI.Client.UIResponseWriter.WriteHealthCheckUIResponse
-        });
+            Predicate = check => check.Tags.Contains("live"),
+            ResponseWriter = async (httpContext, report) =>
+            {
+                httpContext.Response.ContentType = "application/json";
+                var result = new
+                {
+                    Status = report.Status.ToString(),
+                    Description = report.Status.ToString(),
+                    Data = report.Entries.ToDictionary(e => e.Key, e => e.Value.Status.ToString())
+                };
+                await httpContext.Response.WriteAsync(JsonSerializer.Serialize(result));
+            }
+        }).ShortCircuit();
+
+        app.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+        {
+            Predicate = check => check.Tags.Contains("ready"),
+            ResponseWriter = async (httpContext, report) =>
+            {
+                httpContext.Response.ContentType = "application/json";
+                var result = new
+                {
+                    Status = report.Status.ToString(),
+                    Description = report.Status.ToString(),
+                    Data = report.Entries.ToDictionary(e => e.Key, e => e.Value.Status.ToString())
+                };
+                await httpContext.Response.WriteAsync(JsonSerializer.Serialize(result));
+            }        
+        }).ShortCircuit();
 
         app.MapHealthChecksUI(setup =>
         {

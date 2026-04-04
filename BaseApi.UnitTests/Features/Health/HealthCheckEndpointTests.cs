@@ -27,7 +27,7 @@ public class HealthCheckEndpointTests
         var endpoint = Factory.Create<HealthCheckEndpoint>(_healthCheckServiceMock.Object);
 
         // Act
-        await endpoint.HandleAsync(new EmptyRequest(), default);
+        await endpoint.HandleAsync(default);
         var response = endpoint.Response;
 
         // Assert
@@ -47,7 +47,7 @@ public class HealthCheckEndpointTests
         var endpoint = Factory.Create<HealthCheckEndpoint>(_healthCheckServiceMock.Object);
 
         // Act
-        await endpoint.HandleAsync(new EmptyRequest(), default);
+        await endpoint.HandleAsync(default);
         var response = endpoint.Response;
 
         // Assert

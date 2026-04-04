@@ -41,7 +41,7 @@ public class DashboardEndpointTests
         endpoint.HttpContext.Request.Host = new HostString("localhost", 5001);
 
         // Act
-        await endpoint.HandleAsync(new EmptyRequest(), default);
+        await endpoint.HandleAsync(default);
 
         // Assert
         endpoint.HttpContext.Response.StatusCode.Should().Be(200);
