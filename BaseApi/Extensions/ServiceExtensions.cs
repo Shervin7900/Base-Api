@@ -182,7 +182,7 @@ public static class ServiceExtensions
 
     public static void AddAutoMapperConfig(this IServiceCollection services, params System.Reflection.Assembly[] assemblies)
     {
-        services.AddAutoMapper(assemblies);
+        services.AddAutoMapper(config => { }, assemblies);
     }
 
     public static void AddFluentValidationConfig(this IServiceCollection services, params System.Reflection.Assembly[] assemblies)
