@@ -19,7 +19,7 @@ jobs:
     name: Build and Test (CI)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -55,7 +55,7 @@ jobs:
     needs: ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Build Docker for Scanning
         run: docker build -t ${{ env.DOCKER_IMAGE }}:scan BaseApi/
@@ -78,7 +78,7 @@ jobs:
     environment: development
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Build Docker Dev
         run: docker build -t ${{ env.DOCKER_IMAGE }}:dev BaseApi/
       - name: Fake Deploy to Dev Cluster
@@ -92,7 +92,7 @@ jobs:
     environment: staging
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Build Docker Stage
         run: docker build -t ${{ env.DOCKER_IMAGE }}:stage BaseApi/
       - name: Fake Deploy to Stage Cluster
@@ -106,7 +106,7 @@ jobs:
     environment: production
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Build Docker Prod
         run: docker build -t ${{ env.DOCKER_IMAGE }}:prod BaseApi/
       - name: Fake Deploy to Production Cluster
