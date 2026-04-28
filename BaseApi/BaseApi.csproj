@@ -11,7 +11,7 @@
     <Version>1.0.0</Version>
     <Authors>Shervin</Authors>
     <Description>Shared infrastructure for Discount Manager microservices. Includes Identity, Health, Metrics, and Caching.</Description>
-    <NoWarn>$(NoWarn);NU1605</NoWarn>
+    <NoWarn>$(NoWarn);NU1605;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
