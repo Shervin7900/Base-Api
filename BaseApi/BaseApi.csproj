@@ -12,6 +12,7 @@
     <Authors>Shervin</Authors>
     <Description>Shared infrastructure for Discount Manager microservices. Includes Identity, Health, Metrics, and Caching.</Description>
     <NoWarn>$(NoWarn);NU1605;1591</NoWarn>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
   </PropertyGroup>
 
   <ItemGroup>
